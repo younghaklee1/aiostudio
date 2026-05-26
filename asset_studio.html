@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A.SSET STUDIO — 이커머스 촬영 패키지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:   #0a0a0a;
+    --off:     #111111;
+    --surface: #161616;
+    --border:  #2a2a2a;
+    --mid:     #444444;
+    --muted:   #888888;
+    --light:   #cccccc;
+    --white:   #f5f5f0;
+    --gold:    #c9a96e;
+    --gold-dim:#7a5e35;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ──────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--light); text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 9px 24px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .25s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+  /* ── HERO ─────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 64px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(201,169,110,.06) 0%, transparent 50%),
+      linear-gradient(to bottom, transparent 40%, rgba(10,10,10,.95) 100%);
+  }
+  /* grain overlay */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; opacity: .5;
+  }
+  /* grid lines */
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: .18;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+  }
+  .hero-tag {
+    position: relative;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--gold);
+  }
+  h1 {
+    position: relative;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(52px, 8vw, 112px);
+    line-height: .95;
+    letter-spacing: -1px;
+    color: var(--white);
+    margin-bottom: 32px;
+  }
+  h1 em { color: var(--gold); font-style: normal; }
+  .hero-sub {
+    position: relative;
+    max-width: 540px;
+    font-size: 14px; color: var(--light);
+    line-height: 1.9; margin-bottom: 48px;
+  }
+  .hero-actions {
+    position: relative;
+    display: flex; gap: 16px; align-items: center;
+  }
+  .btn-primary {
+    padding: 14px 40px;
+    background: var(--gold); color: var(--black);
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    font-weight: 500;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: .85; }
+  .btn-ghost {
+    padding: 14px 40px;
+    border: 1px solid var(--mid);
+    color: var(--light);
+    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+    background: transparent; cursor: pointer; text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-ghost:hover { border-color: var(--light); color: var(--white); }
+  .hero-scroll {
+    position: absolute; right: 64px; bottom: 80px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+  }
+  .hero-scroll::after {
+    content: ''; display: block;
+    width: 1px; height: 40px; background: var(--border);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+  /* ── SECTION COMMON ───────────────────────── */
+  section { padding: 120px 64px; }
+  .section-eyebrow {
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .section-eyebrow::before { content:''; display:block; width:24px; height:1px; background:var(--gold); }
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300; font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.05; letter-spacing: -.5px;
+    margin-bottom: 20px;
+  }
+  h2 em { font-style: italic; color: var(--gold); }
+
+  /* ── ABOUT STRIP ──────────────────────────── */
+  #about {
+    padding: 72px 64px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 64px; align-items: center;
+  }
+  .about-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; line-height: 1;
+    letter-spacing: 4px; color: var(--surface);
+    white-space: nowrap; flex-shrink: 0;
+    -webkit-text-stroke: 1px var(--border);
+  }
+  .about-text { max-width: 600px; color: var(--light); font-size: 15px; line-height: 1.9; }
+  .about-stats { display: flex; gap: 48px; margin-top: 40px; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; line-height: 1; color: var(--gold);
+  }
+  .stat-label { font-size: 11px; letter-spacing: 1.5px; color: var(--muted); margin-top: 4px; }
+
+  /* ── SERVICES ─────────────────────────────── */
+  #services { background: var(--off); }
+  .services-intro { max-width: 580px; margin-bottom: 72px; }
+  .services-intro p { color: var(--muted); font-size: 14px; line-height: 1.9; margin-top: 16px; }
+
+  /* package cards */
+  .packages { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 64px; }
+  .pkg-card {
+    background: var(--surface);
+    padding: 52px 48px;
+    position: relative; overflow: hidden;
+    transition: background .3s;
+  }
+  .pkg-card:hover { background: #1c1c1c; }
+  .pkg-card.featured {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+  }
+  .pkg-card.featured:hover { background: #8a6b3a; }
+  .pkg-badge {
+    position: absolute; top: 0; right: 0;
+    background: var(--gold); color: var(--black);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 6px 16px; font-weight: 500;
+  }
+  .pkg-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 4px; color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .pkg-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; line-height: 1.1; margin-bottom: 8px;
+  }
+  .pkg-duration {
+    font-size: 12px; letter-spacing: 1px; color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .pkg-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 54px; line-height: 1; color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .pkg-price-note {
+    font-size: 11px; color: var(--muted); margin-bottom: 40px;
+  }
+  .pkg-divider { width: 40px; height: 1px; background: var(--border); margin-bottom: 32px; }
+  .pkg-includes { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .pkg-includes li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 13px; color: var(--light);
+  }
+  .pkg-includes li::before {
+    content: '—'; color: var(--gold); flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* add-ons */
+  .addons-title {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 24px;
+  }
+  .addons-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .addon-item {
+    background: var(--surface);
+    padding: 28px 28px;
+    border-left: 1px solid var(--border);
+  }
+  .addon-item:first-child { border-left: none; }
+  .addon-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; margin-bottom: 8px;
+  }
+  .addon-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── PROCESS ──────────────────────────────── */
+  #process { border-top: 1px solid var(--border); }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; margin-top: 64px;
+    position: relative;
+  }
+  .process-grid::before {
+    content: '';
+    position: absolute; top: 28px; left: 5%; right: 5%;
+    height: 1px; background: var(--border);
+  }
+  .process-step { padding: 0 28px; }
+  .process-num {
+    width: 56px; height: 56px;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; color: var(--gold);
+    margin-bottom: 28px; background: var(--black);
+    position: relative; z-index: 1;
+  }
+  .process-title {
+    font-size: 14px; font-weight: 500;
+    margin-bottom: 10px; letter-spacing: .5px;
+  }
+  .process-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* ── WHY ASSET ────────────────────────────── */
+  #why {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .why-left h2 { margin-bottom: 24px; }
+  .why-left p { color: var(--muted); font-size: 14px; line-height: 1.9; margin-bottom: 32px; }
+  .why-tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .why-tag {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 8px 16px; color: var(--light);
+  }
+  .why-right { display: flex; flex-direction: column; gap: 0; }
+  .why-item {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: 32px 1fr; gap: 20px;
+  }
+  .why-item:first-child { border-top: 1px solid var(--border); }
+  .why-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; color: var(--gold); line-height: 1.4;
+  }
+  .why-title { font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+  .why-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+  /* ── CONTACT ──────────────────────────────── */
+  #contact { border-top: 1px solid var(--border); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: start; }
+  .contact-info h2 { margin-bottom: 20px; }
+  .contact-info p { color: var(--muted); font-size: 14px; line-height: 1.9; margin-bottom: 40px; }
+  .contact-detail {
+    display: flex; flex-direction: column; gap: 0;
+    border-top: 1px solid var(--border);
+  }
+  .contact-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 0; border-bottom: 1px solid var(--border);
+  }
+  .contact-row-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .contact-row-val { font-size: 13px; color: var(--light); }
+
+  /* form */
+  .contact-form { display: flex; flex-direction: column; gap: 2px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .form-group { display: flex; flex-direction: column; }
+  .form-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); padding: 14px 20px 0; background: var(--surface);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: var(--surface);
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: var(--white);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px; font-weight: 300;
+    padding: 10px 20px 16px;
+    outline: none;
+    transition: border-color .2s;
+    width: 100%;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--mid); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-bottom-color: var(--gold); }
+  .form-group select { appearance: none; cursor: pointer; color: var(--mid); }
+  .form-group select.filled { color: var(--white); }
+  textarea { resize: none; min-height: 110px; }
+  .form-full { grid-column: 1 / -1; }
+
+  /* checkbox group */
+  .check-group-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .check-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .check-option { position: relative; }
+  .check-option input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .check-option label {
+    display: block;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    font-size: 12px; color: var(--muted);
+    cursor: pointer; transition: all .2s;
+  }
+  .check-option input:checked + label {
+    border-color: var(--gold); color: var(--gold);
+  }
+  .check-option label:hover { border-color: var(--mid); color: var(--light); }
+
+  .form-check-section {
+    background: var(--surface); padding: 20px 20px 18px;
+  }
+  .form-submit {
+    padding: 18px;
+    background: var(--gold); color: var(--black);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+    border: none; cursor: pointer;
+    transition: opacity .2s;
+    margin-top: 2px;
+  }
+  .form-submit:hover { opacity: .85; }
+
+  /* success overlay */
+  #form-success {
+    display: none;
+    text-align: center; padding: 60px 40px;
+    background: var(--surface);
+  }
+  .success-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px; color: var(--gold); margin-bottom: 16px;
+  }
+  .success-msg { font-size: 14px; color: var(--light); line-height: 1.8; }
+
+  /* ── FOOTER ───────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 64px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 4px; color: var(--muted);
+  }
+  .footer-logo span { color: var(--gold-dim); }
+  .footer-copy { font-size: 11px; color: var(--mid); letter-spacing: 1px; }
+
+  /* ── FADE-IN ANIMATION ────────────────────── */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ───────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    #hero { padding: 0 24px 60px; }
+    #about { flex-direction: column; padding: 48px 24px; gap: 32px; }
+    .about-label { font-size: 48px; }
+    .packages { grid-template-columns: 1fr; }
+    .addons-grid { grid-template-columns: 1fr 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .process-grid::before { display: none; }
+    .why-layout { grid-template-columns: 1fr; gap: 40px; }
+    .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">A.<span>SSET</span> STUDIO</a>
+  <ul class="nav-links">
+    <li><a href="#services">서비스</a></li>
+    <li><a href="#process">프로세스</a></li>
+    <li><a href="#why">에이셋</a></li>
+    <li><a href="#contact">문의</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">견적 문의</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <p class="hero-tag">A.SSET Model Agency — Studio Package</p>
+  <h1>
+    브랜드를<br>
+    <em>완성하는</em><br>
+    촬영
+  </h1>
+  <p class="hero-sub">
+    소속 모델 · 전문 포토그래퍼 · 헤어메이크업 · 스튜디오 70평.<br>
+    이커머스와 브랜드를 위한 원스톱 촬영 패키지.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">촬영 문의하기</a>
+    <a href="#services" class="btn-ghost">패키지 보기</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div id="about">
+  <div class="about-label">A.SSET</div>
+  <div>
+    <p class="about-text">
+      에이셋은 국내외 모델 에이전시로 출발해, 자체 스튜디오와 디자이너 팀을 갖춘
+      종합 비주얼 파트너로 성장했습니다. 모델 섭외부터 촬영, 후보정까지
+      하나의 팀이 전담해 브랜드의 아이덴티티를 일관되게 구현합니다.
+    </p>
+    <div class="about-stats">
+      <div>
+        <div class="stat-num">70<small style="font-size:24px">평</small></div>
+        <div class="stat-label">자체 스튜디오</div>
+      </div>
+      <div>
+        <div class="stat-num">K+F</div>
+        <div class="stat-label">국내외 모델</div>
+      </div>
+      <div>
+        <div class="stat-num">1팀</div>
+        <div class="stat-label">원스톱 운영</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro fade-in">
+    <p class="section-eyebrow">패키지 안내</p>
+    <h2>촬영 패키지 <em>구성</em></h2>
+    <p>
+      포토그래퍼 · 헤어메이크업 · 소속 모델이 기본 포함됩니다.
+      VAT 10% 별도 / 소스 사용 기간 6개월 기준 (공식 홈페이지·SNS).
+      모델에 따라 추가 모델료가 발생할 수 있습니다.
+    </p>
+  </div>
+
+  <div class="packages">
+    <div class="pkg-card fade-in">
+      <div class="pkg-number">PACKAGE 01</div>
+      <div class="pkg-name">Half Day</div>
+      <div class="pkg-duration">4시간 기준</div>
+      <div class="pkg-price">문의</div>
+      <div class="pkg-price-note">VAT 별도 · 조건에 따라 견적 상이</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-includes">
+        <li>포토그래퍼 포함</li>
+        <li>헤어 &amp; 메이크업 포함</li>
+        <li>모델 1인 포함 (한국인·외국인 선택)</li>
+        <li>전체 사진 전달 — 톤 보정 포함</li>
+        <li>스튜디오 사용 별도 문의</li>
+      </ul>
+    </div>
+    <div class="pkg-card featured fade-in">
+      <div class="pkg-badge">추천</div>
+      <div class="pkg-number">PACKAGE 02</div>
+      <div class="pkg-name">Full Day</div>
+      <div class="pkg-duration">8시간 기준</div>
+      <div class="pkg-price">문의</div>
+      <div class="pkg-price-note">VAT 별도 · 조건에 따라 견적 상이</div>
+      <div class="pkg-divider"></div>
+      <ul class="pkg-includes">
+        <li>포토그래퍼 포함</li>
+        <li>헤어 &amp; 메이크업 포함</li>
+        <li>모델 1인 포함 (한국인·외국인 선택)</li>
+        <li>전체 사진 전달 — 톤 보정 포함</li>
+        <li>자체 스튜디오 70평 사용 포함</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="fade-in">
+    <p class="addons-title">별도 서비스 항목</p>
+    <div class="addons-grid">
+      <div class="addon-item">
+        <div class="addon-name">추가 모델료</div>
+        <div class="addon-desc">선택 모델 등급에 따라 기본 패키지 외 추가 비용 발생</div>
+      </div>
+      <div class="addon-item">
+        <div class="addon-name">디렉팅</div>
+        <div class="addon-desc">브랜드 아이덴티티에 맞춘 콘셉트 기획 및 현장 연출 총괄</div>
+      </div>
+      <div class="addon-item">
+        <div class="addon-name">세부 리터칭</div>
+        <div class="addon-desc">톤 보정 외 모델 보정, 배경 수정 등 심화 후처리</div>
+      </div>
+      <div class="addon-item">
+        <div class="addon-name">스타일링</div>
+        <div class="addon-desc">의상·소품·액세서리 코디네이션 전담 스타일리스트</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <p class="section-eyebrow fade-in">진행 프로세스</p>
+  <h2 class="fade-in">촬영까지 <em>5단계</em></h2>
+  <div class="process-grid">
+    <div class="process-step fade-in">
+      <div class="process-num">01</div>
+      <div class="process-title">문의 &amp; 상담</div>
+      <div class="process-desc">촬영 목적·제품 수량·예산 범위를 공유해 주시면 맞춤 견적을 안내드립니다.</div>
+    </div>
+    <div class="process-step fade-in">
+      <div class="process-num">02</div>
+      <div class="process-title">견적 &amp; 계약</div>
+      <div class="process-desc">조건 확정 후 견적서 발송, 선금 50% 입금 시 일정이 확정됩니다.</div>
+    </div>
+    <div class="process-step fade-in">
+      <div class="process-num">03</div>
+      <div class="process-title">사전 기획</div>
+      <div class="process-desc">레퍼런스 이미지 공유 및 모델 선택, 스타일링 방향 사전 협의.</div>
+    </div>
+    <div class="process-step fade-in">
+      <div class="process-num">04</div>
+      <div class="process-title">촬영 진행</div>
+      <div class="process-desc">자체 스튜디오 또는 로케이션에서 당일 진행. 1룩당 5~10분 소요.</div>
+    </div>
+    <div class="process-step fade-in">
+      <div class="process-num">05</div>
+      <div class="process-title">납품</div>
+      <div class="process-desc">촬영 후 평일 기준 4~6일 이내 보정 완료본 전달.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY ASSET -->
+<section id="why">
+  <div class="why-layout">
+    <div class="why-left fade-in">
+      <p class="section-eyebrow">에이셋을 선택하는 이유</p>
+      <h2>모델 에이전시가<br><em>직접</em> 찍습니다</h2>
+      <p>
+        일반 촬영 스튜디오는 모델을 외부에서 조달합니다.
+        에이셋은 소속 모델을 보유한 에이전시가 스튜디오를 운영하기 때문에
+        모델 섭외 비용 없이 퀄리티 높은 결과물을 제공할 수 있습니다.
+      </p>
+      <div class="why-tag-list">
+        <span class="why-tag">국내외 모델</span>
+        <span class="why-tag">70평 자체 스튜디오</span>
+        <span class="why-tag">인하우스 디자이너</span>
+        <span class="why-tag">원스톱 서비스</span>
+        <span class="why-tag">기업 고객 다수 보유</span>
+      </div>
+    </div>
+    <div class="why-right">
+      <div class="why-item fade-in">
+        <div class="why-icon">01</div>
+        <div>
+          <div class="why-title">모델 직접 보유</div>
+          <div class="why-desc">에이전시 소속 모델을 내부 원가로 투입. 외부 섭외 대비 비용 구조가 근본적으로 다릅니다.</div>
+        </div>
+      </div>
+      <div class="why-item fade-in">
+        <div class="why-icon">02</div>
+        <div>
+          <div class="why-title">자체 스튜디오 70평</div>
+          <div class="why-desc">호리존·자연광·무드 세트 구성 가능. 대관 없이 유연하게 일정을 조율합니다.</div>
+        </div>
+      </div>
+      <div class="why-item fade-in">
+        <div class="why-icon">03</div>
+        <div>
+          <div class="why-title">인하우스 디자이너 팀</div>
+          <div class="why-desc">촬영 후 후보정, 배너·상세페이지 디자인까지 한 팀에서 이어집니다.</div>
+        </div>
+      </div>
+      <div class="why-item fade-in">
+        <div class="why-icon">04</div>
+        <div>
+          <div class="why-title">기존 브랜드 고객 네트워크</div>
+          <div class="why-desc">국내외 브랜드, 이커머스 셀러와의 장기 파트너십으로 쌓인 노하우를 적용합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-info fade-in">
+      <p class="section-eyebrow">문의하기</p>
+      <h2>촬영을<br><em>시작하세요</em></h2>
+      <p>
+        브랜드명과 촬영 내용을 알려주시면 48시간 이내에 담당자가 연락드립니다.
+        견적은 조건에 따라 맞춤 안내드립니다.
+      </p>
+      <div class="contact-detail">
+        <div class="contact-row">
+          <span class="contact-row-label">이메일</span>
+          <span class="contact-row-val">studio@asset-agency.com</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">카카오채널</span>
+          <span class="contact-row-val">@에이셋스튜디오</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">스튜디오</span>
+          <span class="contact-row-val">서울특별시</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">응답 시간</span>
+          <span class="contact-row-val">영업일 기준 48시간 이내</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade-in">
+      <div class="contact-form" id="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <span class="form-label">브랜드명 *</span>
+            <input type="text" id="brand" placeholder="브랜드 또는 회사명">
+          </div>
+          <div class="form-group">
+            <span class="form-label">담당자명 &amp; 직함 *</span>
+            <input type="text" id="person" placeholder="홍길동 / 마케터">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <span class="form-label">연락처 *</span>
+            <input type="tel" id="phone" placeholder="010-0000-0000">
+          </div>
+          <div class="form-group">
+            <span class="form-label">이메일 *</span>
+            <input type="email" id="email" placeholder="email@brand.com">
+          </div>
+        </div>
+
+        <!-- 촬영 내용 체크박스 -->
+        <div class="form-check-section">
+          <p class="check-group-label">촬영 내용</p>
+          <div class="check-options">
+            <div class="check-option"><input type="checkbox" id="c1"><label for="c1">패션 촬영</label></div>
+            <div class="check-option"><input type="checkbox" id="c2"><label for="c2">뷰티 촬영</label></div>
+            <div class="check-option"><input type="checkbox" id="c3"><label for="c3">룩북</label></div>
+            <div class="check-option"><input type="checkbox" id="c4"><label for="c4">제품컷</label></div>
+            <div class="check-option"><input type="checkbox" id="c5"><label for="c5">브랜드 필름</label></div>
+            <div class="check-option"><input type="checkbox" id="c6"><label for="c6">상담 필요</label></div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <span class="form-label">촬영 예정일</span>
+            <input type="text" id="date" placeholder="예: 2025년 6월 중순">
+          </div>
+          <div class="form-group">
+            <span class="form-label">예상 촬영 시간</span>
+            <select id="duration" onchange="this.classList.add('filled')">
+              <option value="">선택해 주세요</option>
+              <option>4시간 (Half Day)</option>
+              <option>8시간 (Full Day)</option>
+              <option>상담 필요</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">촬영 제품 및 수량</span>
+          <input type="text" id="product" placeholder="예: 여성 의류 봄 신상 20벌">
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">촬영 컨셉 / 레퍼런스</span>
+          <textarea id="concept" placeholder="원하시는 무드나 레퍼런스 이미지 링크를 남겨주세요."></textarea>
+        </div>
+
+        <button class="form-submit" onclick="submitForm()">작성 완료 — 문의 보내기</button>
+      </div>
+
+      <div id="form-success">
+        <div class="success-icon">✓</div>
+        <p class="success-msg">
+          문의가 정상적으로 접수되었습니다.<br>
+          영업일 기준 48시간 이내에 담당자가 연락드리겠습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">A.<span>SSET</span> STUDIO</div>
+  <div class="footer-copy">© 2025 A.SSET Model Agency. All rights reserved.</div>
+</footer>
+
+<script>
+  // fade-in on scroll
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  // nav highlight
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      window.scrollY > 40 ? 'rgba(10,10,10,0.96)' : 'rgba(10,10,10,0.92)';
+  });
+
+  // ── Google Sheets 연동 ──────────────────────────────────────────
+  // 아래 URL을 Apps Script 배포 후 받은 웹앱 URL로 교체하세요
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxeProqn-YneDAMbWetJ1GQX7fEf1xIVExKhSzQ9b2I5edv1ITErb5KRy6xwd3E2zPpCw/exec';
+
+  async function submitForm() {
+    // 필수 항목 검증
+    const required = ['brand','person','phone','email'];
+    const missing = required.filter(id => !document.getElementById(id).value.trim());
+    if (missing.length) {
+      missing.forEach(id => {
+        const el = document.getElementById(id);
+        el.style.borderBottomColor = '#c0392b';
+        setTimeout(() => el.style.borderBottomColor = '', 2000);
+      });
+      return;
+    }
+
+    // 체크박스 수집
+    const shootTypes = ['패션 촬영','뷰티 촬영','룩북','제품컷','브랜드 필름','상담 필요'];
+    const checked = ['c1','c2','c3','c4','c5','c6']
+      .map((id, i) => document.getElementById(id).checked ? shootTypes[i] : null)
+      .filter(Boolean).join(', ') || '미선택';
+
+    // 전송할 데이터
+    const payload = {
+      timestamp:   new Date().toLocaleString('ko-KR', {timeZone:'Asia/Seoul'}),
+      brand:       document.getElementById('brand').value.trim(),
+      person:      document.getElementById('person').value.trim(),
+      phone:       document.getElementById('phone').value.trim(),
+      email:       document.getElementById('email').value.trim(),
+      shootType:   checked,
+      date:        document.getElementById('date').value.trim(),
+      duration:    document.getElementById('duration').value,
+      product:     document.getElementById('product').value.trim(),
+      concept:     document.getElementById('concept').value.trim(),
+    };
+
+    // 버튼 로딩 상태
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = '전송 중...';
+    btn.disabled = true;
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Apps Script CORS 우회
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      // no-cors는 응답 확인 불가 → 전송됐다고 간주
+      document.getElementById('contact-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } catch (err) {
+      btn.textContent = '작성 완료 — 문의 보내기';
+      btn.disabled = false;
+      alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+    }
+  }
+</script>
+</body>
+</html>
